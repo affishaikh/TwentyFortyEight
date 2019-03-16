@@ -22,9 +22,9 @@ public class Game {
     public void placeNumberInBoard() {
         List<Place> emptyPlaces = List.copyOf(board.getEmptyPlaces());
         int index = this.getRandomInteger(emptyPlaces.size() - 1);
-        if(!emptyPlaces.isEmpty()) {
+        if (!emptyPlaces.isEmpty()) {
             Place place = emptyPlaces.get(index);
-            board.placeNumber(place, 2);
+            board.placeNumber(place);
         }
     }
 
@@ -33,6 +33,10 @@ public class Game {
     }
 
     public void moveNumbersToDown() {
-        board.moveNumbersToDown();
+        board.downMove();
+    }
+
+    public void moveNumbersToUp() {
+        board.upMove();
     }
 }

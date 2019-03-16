@@ -43,7 +43,7 @@ public class Board {
         return List.copyOf(emptyPlaces);
     }
 
-    public void placeNumber(Place place, int index) {
+    public void placeNumber(Place place) {
         int row = place.getRow();
         int column = place.getColumn();
         this.board[row][column] = 2;
@@ -65,22 +65,42 @@ public class Board {
         System.out.println(" _ _ _ _ ");
     }
 
-    private int valueAt(Place place) {
-        int row = place.getRow();
-        int column = place.getColumn();
-        return this.board[row][column];
-    }
+//    private int valueAt(Place place) {
+//        int row = place.getRow();
+//        int column = place.getColumn();
+//        return this.board[row][column];
+//    }
 
-    public void moveNumbersToDown() {
+    public void downMove() {
         int[] columns = new int[] {0,1,2,3};
         for (int column : columns) {
-            moveWithinColumn(column);
+            replaceWithinColumn(column);
             addNumbersWithinColumn(column);
-            moveWithinColumn(column);
+            replaceWithinColumn(column);
         }
     }
 
-    private void moveWithinColumn(int column) {
+    public void upMove() {
+        int[] columns = new int[] {0,1,2,3};
+        for (int column : columns) {
+            replaceWithinColumn(column);
+            addNumbersWithinColumn(column);
+            replaceWithinColumn(column);
+            reverseWithinColumn(column);
+        }
+    }
+
+    private void reverseWithinColumn(int column) {
+        int temp1 = this.board[0][column];
+        this.board[0][column] = this.board[3][column];
+        this.board[3][column] = temp1;
+
+        int temp2 = this.board[1][column];
+        this.board[1][column] = this.board[2][column];
+        this.board[2][column] = temp2;
+    }
+
+    private void replaceWithinColumn(int column) {
         for(int row = 2; row >= 0; row--) {
             for(int row1 = row; row1<=2; row1++) {
                 if(this.board[row1 + 1][column] == 0) {
@@ -100,13 +120,5 @@ public class Board {
                 this.board[row][column] = 0;
             }
         }
-    }
-
-    private List getNumberedPlaces() {
-        List<Place> emptyPlaces = this.getEmptyPlaces();
-        List<Place> places = new ArrayList<>(this.places);
-        places.removeAll(emptyPlaces);
-        List<Place> numberedPlaces = new ArrayList<>(places);
-        return numberedPlaces;
     }
 }

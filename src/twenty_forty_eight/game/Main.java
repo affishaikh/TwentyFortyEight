@@ -7,5 +7,8 @@ public class Main {
         game.moveNumbersToDown();
         System.out.println("\n--------------------------\n");
         game.printBoard();
+        System.out.println("\n-----------------------------\n");
+        game.moveNumbersToUp();
+        game.printBoard();
     }
 }

@@ -16,12 +16,4 @@ public class Place {
     public int getColumn() {
         return column;
     }
-
-    public Place getLowestNeighbour() {
-        return new Place(3, this.column);
-    }
-
-    public Place getAboveNeighbour() {
-        return new Place(this.row - 1, this.column);
-    }
 }
