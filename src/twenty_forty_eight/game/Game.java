@@ -32,11 +32,19 @@ public class Game {
         board.printBoard();
     }
 
-    public void moveNumbersToDown() {
+    public void downMove() {
         board.downMove();
     }
 
-    public void moveNumbersToUp() {
+    public void upMove() {
         board.upMove();
+    }
+
+    public void rightMove() {
+        board.rightMove();
+    }
+
+    public void leftMove() {
+        board.leftMove();
     }
 }
