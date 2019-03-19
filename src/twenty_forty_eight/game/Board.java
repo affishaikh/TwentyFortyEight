@@ -1,12 +1,11 @@
 package src.twenty_forty_eight.game;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public class Board {
+class Board {
     private int[][] board;
-    List<Place> places;
+    private List<Place> places;
 
     Board() {
         board = new int[4][4];
@@ -31,12 +30,10 @@ public class Board {
         return this.board[row][column] == 0;
     }
 
-    public List getEmptyPlaces() {
+    List<Place> getEmptyPlaces() {
         List<Place> emptyPlaces = new ArrayList<>();
-        Iterator<Place> iterator = this.places.iterator();
 
-        while (iterator.hasNext()) {
-            Place place = iterator.next();
+        for (Place place : this.places) {
             if (isEmpty(place)) {
                 emptyPlaces.add(place);
             }
@@ -45,21 +42,26 @@ public class Board {
         return List.copyOf(emptyPlaces);
     }
 
-    public void placeNumber(Place place) {
+    void placeNumber(Place place) {
         int row = place.getRow();
         int column = place.getColumn();
         this.board[row][column] = 2;
     }
 
-    public void printBoard() {
-        for (int row = 0; row < this.board.length; row++) {
+    void printBoard() {
+        final int MAX_NUMBER_OF_SPACES = 4;
+        for (int[] row : this.board) {
             System.out.println(" _ _ _ _ _ _ _ _ _ _");
             System.out.print("|");
             for (int column = 0; column < this.board.length; column++) {
-                if (this.board[row][column] == 0) {
+                if (row[column] == 0) {
                     System.out.print("    |");
                 } else {
-                    System.out.print(this.board[row][column] + "   |");
+                    int numberLength = Integer.toString(row[column]).length();
+                    int numberOfSpacesRequired = MAX_NUMBER_OF_SPACES - numberLength;
+                    String spaces = " ";
+                    spaces = spaces.repeat(numberOfSpacesRequired);
+                    System.out.print(row[column] + spaces + "|");
                 }
             }
             System.out.println();
@@ -67,7 +69,7 @@ public class Board {
         System.out.println(" _ _ _ _ _ _ _ _ _ _");
     }
 
-    public void downMove() {
+    void downMove() {
         int[] columns = new int[]{0, 1, 2, 3};
         for (int column : columns) {
             moveNumbersDown(column);
@@ -76,7 +78,7 @@ public class Board {
         }
     }
 
-    public void upMove() {
+    void upMove() {
         int[] columns = new int[]{0, 1, 2, 3};
         for (int column : columns) {
             moveNumbersUp(column);
@@ -85,26 +87,26 @@ public class Board {
         }
     }
 
-    public void rightMove() {
+    void rightMove() {
         int[] columns = new int[]{0, 1, 2, 3};
-        transpose();
+        this.board = transpose(this.board);
         for (int column : columns) {
             moveNumbersDown(column);
             addNumbersInDownDirection(column);
             moveNumbersDown(column);
         }
-        transpose();
+        this.board = transpose(this.board);
     }
 
-    public void leftMove() {
+    void leftMove() {
         int[] columns = new int[]{0, 1, 2, 3};
-        transpose();
+        this.board = transpose(this.board);
         for (int column : columns) {
             moveNumbersUp(column);
             addNumbersInUpDirection(column);
             moveNumbersUp(column);
         }
-        transpose();
+        this.board = transpose(this.board);
     }
 
     private void moveNumbersUp(int column) {
@@ -151,14 +153,14 @@ public class Board {
         }
     }
 
-    private void transpose() {
+    private int[][] transpose(int[][] board) {
         int[][] transpose = new int[4][4];
 
-        for (int row = 0; row < this.board.length; row++) {
-            for (int column = 0; column < this.board.length; column++) {
-                transpose[row][column] = this.board[column][row];
+        for (int row = 0; row < board.length; row++) {
+            for (int column = 0; column < board.length; column++) {
+                transpose[row][column] = board[column][row];
             }
         }
-        this.board = transpose;
+        return transpose;
     }
 }

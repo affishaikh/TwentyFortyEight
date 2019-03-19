@@ -2,14 +2,14 @@ package src.twenty_forty_eight.game;
 
 import java.util.List;
 
-public class Game {
-    Board board;
+class Game {
+    private Board board;
 
-    public Game() {
+    Game() {
         this.board = new Board();
     }
 
-    public void startGame() {
+    void startGame() {
         this.placeNumberInBoard();
         this.placeNumberInBoard();
         this.printBoard();
@@ -19,7 +19,7 @@ public class Game {
         return Math.round((float) Math.random() * limit);
     }
 
-    public void placeNumberInBoard() {
+    void placeNumberInBoard() {
         List<Place> emptyPlaces = List.copyOf(board.getEmptyPlaces());
         int index = this.getRandomInteger(emptyPlaces.size() - 1);
         if (!emptyPlaces.isEmpty()) {
@@ -28,23 +28,23 @@ public class Game {
         }
     }
 
-    public void printBoard() {
+    void printBoard() {
         board.printBoard();
     }
 
-    public void downMove() {
+    void downMove() {
         board.downMove();
     }
 
-    public void upMove() {
+    void upMove() {
         board.upMove();
     }
 
-    public void rightMove() {
+    void rightMove() {
         board.rightMove();
     }
 
-    public void leftMove() {
+    void leftMove() {
         board.leftMove();
     }
 }

@@ -10,6 +10,9 @@ public class Main {
 
         byte option;
         do {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            game.printBoard();
             System.out.println("Choose your move :");
             System.out.println("1. Up");
             System.out.println("2. Down");
@@ -27,22 +30,18 @@ public class Main {
             case 1:
                 game.upMove();
                 game.placeNumberInBoard();
-                game.printBoard();
                 break;
             case 2:
                 game.downMove();
                 game.placeNumberInBoard();
-                game.printBoard();
                 break;
             case 3:
                 game.rightMove();
                 game.placeNumberInBoard();
-                game.printBoard();
                 break;
             case 4:
                 game.leftMove();
                 game.placeNumberInBoard();
-                game.printBoard();
                 break;
         }
     }
