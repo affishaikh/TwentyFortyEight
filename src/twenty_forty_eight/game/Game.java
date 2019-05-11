@@ -10,9 +10,12 @@ class Game {
     }
 
     void startGame() {
+        performInitialMoves();
+    }
+
+    private void performInitialMoves() {
         this.placeNumberInBoard();
         this.placeNumberInBoard();
-        this.printBoard();
     }
 
     private int getRandomInteger(int limit) {
@@ -20,9 +23,10 @@ class Game {
     }
 
     void placeNumberInBoard() {
-        List<Place> emptyPlaces = List.copyOf(board.getEmptyPlaces());
-        int index = this.getRandomInteger(emptyPlaces.size() - 1);
+        List<Place> emptyPlaces = board.getEmptyPlaces();
         if (!emptyPlaces.isEmpty()) {
+            int limit = emptyPlaces.size() - 1;
+            int index = this.getRandomInteger(limit);
             Place place = emptyPlaces.get(index);
             board.placeNumber(place);
         }
